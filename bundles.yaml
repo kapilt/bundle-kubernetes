@@ -8,7 +8,7 @@ kubernetes:
       num_units: 2
       options:
         container_type: docker
-        docker_origin: upstream
+        docker_origin: distro
     kubernetes:
       charm: cs:~hazmat/trusty/kubernetes
       num_units: 2
