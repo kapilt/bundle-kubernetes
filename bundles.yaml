@@ -1,0 +1,21 @@
+kubernetes:
+  series: trusty
+  services:
+    kubernetes-master:
+      charm: cs:~hazmat/trusty/kubernetes-master
+    flannel:
+      charm: cs:~hazmat/trusty/flannel
+      num_units: 2
+      options:
+        container_type: docker
+        docker_origin: upstream
+    kubernetes:
+      charm: cs:~hazmat/trusty/kubernetes
+      num_units: 2
+      to: [flannel, flannel]
+    etcd:
+      charm: cs:~hazmat/trusty/etcd
+  relations:
+    - ['etcd', ['flannel', 'kubernetes', 'kubernetes-master']]
+    - ['flannel', 'kubernetes']
+    - ['kubernetes-master', 'kubernetes']
