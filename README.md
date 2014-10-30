@@ -8,33 +8,32 @@ Usage
 =====
 
 This bundle can be used to deploy kubernetes onto any cloud it can be used 
-directly in the gui or via the deployer cli::
+directly in the gui or via the deployer cli :
 
- juju-deployer -vWSdc bundle.yaml
+    juju-deployer -vWSdc bundle.yaml
 
 You'll need the kubernetes command line client to utlize the created cluster.
-
 https://github.com/GoogleCloudPlatform/kubernetes/releases
 
 Grab the tarball and from the extracted release you can just directly use the 
 cli binary at ./kubernetes/platforms/linux/amd64/kubecfg
 
-You'll need the address of the kubernetes master as environment variable:
+You'll need the address of the kubernetes master as environment variable :
 
-   juju status kubernetes-master/0
+    juju status kubernetes-master/0
 
 Grab the public-address there and export it as KUBERNETES_MASTER environment
-variable:
+variable :
   
-   export KUBERNETES_MASTER="x.y.z.d"
+    export KUBERNETES_MASTER="x.y.z.d"
 
-And now you can run through the kubernetes examples per normal.
+And now you can run through the kubernetes examples per normal. :
 
-   $ kubecfg list minions
+    $ kubecfg list minions
 
-You can add capacity by adding more minions
+You can add capacity by adding more minions :
 
-   $ juju add-unit kubernetes
+    $ juju add-unit kubernetes
 
 Caveat
 ======
