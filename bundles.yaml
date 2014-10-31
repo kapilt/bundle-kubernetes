@@ -28,6 +28,8 @@ kubernetes:
         "gui-x": "1217.3477783203125"
         "gui-y": "142.39132690429688"
   relations:
-    - ['etcd', ['flannel', 'kubernetes', 'kubernetes-master']]
+    - ['etcd', 'flannel']
+    - ['etcd', 'kubernetes']
+    - ['etcd', 'kubernetes-master']
     - ['flannel', 'kubernetes']
     - ['kubernetes-master', 'kubernetes']
