@@ -18,10 +18,11 @@ which works on mac ( brew install juju-quickstart ) or linux/ubuntu (apt-get ins
 This bundle can be used to deploy kubernetes onto any cloud it can be used 
 directly in the juju gui or via the juju-quickstart or deployer cli :
 
-    juju-quickstart https://raw.githubusercontent.com/kapilt/bundle-kubernetes/master/bundles.yaml
+    juju quickstart bundle:~hazmat/kubernetes/kubernetes
 
 The quickstart package will present a curses ui to get you started on any
-supported cloud platform. After that the bundle will launch 4 machines (etcd, kubernetes-master, 2x minions w/ flannel).
+supported cloud platform. After that the bundle will launch 4 machines (etcd,
+kubernetes-master, 2x minions w/ flannel).
 
 You'll need the kubernetes command line client to utlize the created cluster.
 https://github.com/GoogleCloudPlatform/kubernetes/releases
