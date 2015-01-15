@@ -2,14 +2,12 @@ kubernetes:
   series: trusty
   services:
     kubernetes-master:
-      charm: kubernetes-master
-#      branch: lp:~hazmat/charms/trusty/kubernetes-master/trunk
+      charm: local:trusty/kubernetes-master
       annotations:
         "gui-x": "1536.565185546875"
         "gui-y": "280.21742248535156"
     flannel:
-      charm: flannel
-#      branch: lp:~hazmat/charms/trusty/flannel/trunk
+      charm: cs:~hazmat/trusty/flannel
       num_units: 2
       options:
         container_type: docker
@@ -18,16 +16,14 @@ kubernetes:
         "gui-x": "896.260986328125"
         "gui-y": "298.6087341308594"
     kubernetes:
-      charm: kubernetes
-#      branch: lp:~hazmat/charms/trusty/kubernetes/trunk
+      charm: local:trusty/kubernetes
       num_units: 2
       to: [flannel, flannel]
       annotations:
         "gui-x": "1219.8695068359375"
         "gui-y": "430.04345703125"
     etcd:
-      charm: etcd
-#      branch: lp:~hazmat/charms/trusty/etcd/trunk
+      charm: cs:~hazmat/trusty/etcd
       annotations:
         "gui-x": "1217.3477783203125"
         "gui-y": "142.39132690429688"
