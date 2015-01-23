@@ -26,6 +26,20 @@ The quickstart package will present a curses ui to get you started on any
 supported cloud platform. After that the bundle will launch 4 machines (etcd,
 kubernetes-master, 2x minions w/ flannel).
 
+Development Bundle: For charm developers / contributions
+--------------------------------------------------------
+
+    mkdir -p ~/charms/trusty
+    git clone https://github.com/whitmo/kubernetes-charm.git ~/charms/trusty/kubernetes
+    git clone https://github.com/whitmo/kubernetes-master-charm.git ~/charms/trusty/kubernetes-master
+
+    juju quickstart develop.yaml
+    juju expose kubernetes-master
+
+
+Kubernetes Client Setup
+---------------------------
+
 You'll need the kubernetes command line client to utlize the created cluster.
 https://github.com/GoogleCloudPlatform/kubernetes/releases
 
@@ -46,12 +60,9 @@ And now you can run through the kubernetes examples per normal. :
     $ kubecfg list minions
 
 You can add capacity by adding more minions :
+     $ juju add-unit flannel
+     $ juju add-unit kubernetes --to # (the id that flannel is assigned)
 
-*    $ juju add-unit kubernetes
-
-[doesn't this need moar flannel??]
-
-**
 Caveat
 ======
 
