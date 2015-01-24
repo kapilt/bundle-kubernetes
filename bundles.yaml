@@ -33,3 +33,15 @@ kubernetes:
     - ['etcd', 'kubernetes-master']
     - ['flannel', 'kubernetes']
     - ['kubernetes-master', 'kubernetes']
+
+kubernetes-devel:
+  inherits: [kubernetes]
+  services:
+    kubernetes-master:
+      charm: local:trusty/kubernetes-master
+    flannel:
+      charm: cs:~hazmat/trusty/flannel
+    kubernetes:
+      charm: local:trusty/kubernetes
+    etcd:
+      charm: cs:~hazmat/trusty/etcd
