@@ -44,6 +44,13 @@ for i in "${!gitrepos[@]}"; do
         bzr branch $TARGET $CHARM
     fi
     popd
+
     pushd .
+    cd $REPOPATH
+    git-vendor sync -t $1 -d $CHARMPATH
+    cd $CHARMPATH
+    bzr add && bzr tag $1 && bzr commit -m "Release ${1}"
+    bzr push $LPBASE/$CHARM/trunk
+    popd
 
 done
