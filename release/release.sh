@@ -21,11 +21,11 @@ for i in "${!gitrepos[@]}"; do
     echo $i $REPO $CHARM
 
 
-    REPOPATH=`pwd`"git/${CHARM}"
+    REPOPATH=`pwd`"/git/${CHARM}"
     if [ -d  $REPOPATH ]
     then
         echo "git/${CHARM}: $REPO exists"
-        cd $REPOPATH
+        pushd . && cd $REPOPATH
         git pull --rebase
     else
         pushd . && cd git
@@ -34,7 +34,7 @@ for i in "${!gitrepos[@]}"; do
     popd
 
 
-    CHARMPATH=`pwd`"git/${CHARM}"
+    CHARMPATH=`pwd`"/lp/${CHARM}"
     if [ -d $CHARMPATH ]
     then
         pushd . && cd $CHARMPATH
@@ -44,6 +44,6 @@ for i in "${!gitrepos[@]}"; do
         bzr branch $TARGET $CHARM
     fi
     popd
-
+    pushd .
 
 done
