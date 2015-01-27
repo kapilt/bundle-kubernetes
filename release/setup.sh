@@ -1,2 +1,3 @@
 #!/bin/bash
-apt-get install jq bzr git
+# Install the prerequisites for the kubernetes release script.
+sudo apt-get install -yq jq bzr git

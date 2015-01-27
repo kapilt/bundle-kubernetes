@@ -1,4 +1,6 @@
-#!bin/bash
+#!/bin/bash
+
+# Copy the charms from git and bzr that are in the .config.json file. 
 
 set -ex
 
@@ -33,7 +35,7 @@ for i in "${!gitrepos[@]}"; do
         echo "lp/${CHARM}: $REPO exists"
     else
         pushd . && cd lp
-        bzr branch $TARGET
+        bzr branch $TARGET $CHARM
         popd
     fi
 
