@@ -1,0 +1,17 @@
+{
+  "lpbase": "lp:~kubernetes/charms/trusty",
+  "gitrepos": [
+    {
+      "lp": "kubernetes-master",
+      "git": "https://github.com/whitmo/charm-kubernetes-master.git"
+    },
+    {
+      "lp": "kubernetes",
+      "git": "https://github.com/whitmo/charm-kubernetes.git"
+    },
+    {
+      "lp": "kubernetes-bundle",
+      "git": "https://github.com/whitmo/bundle-kubernetes.git"
+    }
+  ]
+}
