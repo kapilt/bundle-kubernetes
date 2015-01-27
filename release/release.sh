@@ -1,6 +1,5 @@
 #!/bin/bash
-
-# Copy the charms from git and bzr that are in the .config.json file. 
+# Copy the charms from git and bzr that are in the .config.json file.
 
 set -ex
 
@@ -21,22 +20,30 @@ for i in "${!gitrepos[@]}"; do
     TARGET="${LPBASE}/${CHARM}/trunk"
     echo $i $REPO $CHARM
 
-    if [ -d "git/${CHARM}" ]
+
+    REPOPATH=`pwd`"git/${CHARM}"
+    if [ -d  $REPOPATH ]
     then
         echo "git/${CHARM}: $REPO exists"
+        cd $REPOPATH
+        git pull --rebase
     else
         pushd . && cd git
         git clone $REPO $CHARM
-        popd
     fi
+    popd
 
-    if [ -d "lp/${CHARM}" ]
+
+    CHARMPATH=`pwd`"git/${CHARM}"
+    if [ -d $CHARMPATH ]
     then
+        pushd . && cd $CHARMPATH
         echo "lp/${CHARM}: $REPO exists"
     else
         pushd . && cd lp
         bzr branch $TARGET $CHARM
-        popd
     fi
+    popd
+
 
 done
