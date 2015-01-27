@@ -12,6 +12,14 @@
     {
       "lp": "kubernetes-bundle",
       "git": "https://github.com/whitmo/bundle-kubernetes.git"
+    },
+    {
+      "lp": "etcd",
+      "git": "https://github.com/whitmo/etcd-charm.git"
+    },
+    {
+      "lp": "flannel",
+      "git": "https://github.com/whitmo/flannel-charm.git"
     }
   ]
 }
