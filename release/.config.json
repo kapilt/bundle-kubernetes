@@ -1,24 +1,23 @@
 {
-  "lpbase": "lp:~kubernetes/charms/trusty",
-  "gitrepos": [
+  "repos": [
     {
-      "lp": "kubernetes-master",
+      "lp": "lp:~kubernetes/charms/trusty/kubernetes-master/trunk",
       "git": "https://github.com/whitmo/charm-kubernetes-master.git"
     },
     {
-      "lp": "kubernetes",
+      "lp": "lp:~kubernetes/charms/trusty/kubernetes/trunk",
       "git": "https://github.com/whitmo/charm-kubernetes.git"
     },
     {
-      "lp": "kubernetes-bundle",
+      "lp": "lp:~kubernetes/charms/trusty/kubernetes-bundle/trunk",
       "git": "https://github.com/whitmo/bundle-kubernetes.git"
     },
     {
-      "lp": "etcd",
+      "lp": "lp:~kubernetes/charms/trusty/etcd/trunk",
       "git": "https://github.com/whitmo/etcd-charm.git"
     },
     {
-      "lp": "flannel",
+      "lp": "lp:~kubernetes/charms/trusty/flannel/trunks",
       "git": "https://github.com/whitmo/flannel-charm.git"
     }
   ]
