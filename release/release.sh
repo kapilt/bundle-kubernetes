@@ -5,7 +5,7 @@
 # Copy the github code over the bzr code.
 # Push the new bzr code to launchpad.
 
-# The first argument should be the tag and it should be in the format 
+# The first argument should be the tag and it should be in the format
 # vN.N.N to match the kubernetes version that the charms support by default.
 
 set -ex
