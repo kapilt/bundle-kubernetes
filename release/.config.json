@@ -17,7 +17,7 @@
       "git": "https://github.com/whitmo/etcd-charm.git"
     },
     {
-      "lp": "lp:~kubernetes/charms/trusty/flannel/trunks",
+      "lp": "lp:~kubernetes/charms/trusty/flannel/trunk",
       "git": "https://github.com/whitmo/flannel-charm.git"
     }
   ]
