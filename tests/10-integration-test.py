@@ -24,10 +24,17 @@ class BundleIntegrationTest(unittest.TestCase):
                                             'bundles.yaml')
 
         self.deployment = amulet.Deployment()
+<<<<<<< HEAD
         try:
             with open(self.bundle_path, 'r') as bundle_file:
                 contents = yaml.safe_load(bundle_file)
                 self.deployment.load(contents)
+=======
+        with open(self.bundle_path, 'r') as bundle_file:
+            contents = yaml.safe_load(bundle_file)
+            self.deployment.load(contents)
+        try:
+>>>>>>> a113a21... Fixing Makefile, and 10-integration-test.py and moved bundles to specs directory.
             self.deployment.setup(seconds)
             self.deployment.wait()
         except Exception:
@@ -47,7 +54,11 @@ class BundleIntegrationTest(unittest.TestCase):
         assert self.deployment.sentry.unit.get('kubernetes-master/0', False)
 
     def test_1_relations(self):
+<<<<<<< HEAD
         """ Test bundle relations, errors will be thrown if relations fail. """
+=======
+        """ Test bundle relations. Errors will be thrown if relations fail. """
+>>>>>>> a113a21... Fixing Makefile, and 10-integration-test.py and moved bundles to specs directory.
         kube0, kube1, km = self.kunits()
         # Get all the important relations from the bundle.
         etcd_relation = kube0.relation('etcd', 'etcd:client')

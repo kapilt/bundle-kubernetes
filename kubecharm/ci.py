@@ -1,4 +1,5 @@
 from clint.textui import prompt
+from clint.textui import yn
 from path import path
 import requests
 import yaml
@@ -11,7 +12,7 @@ def handle_token(config, configfp):
         if token is None:
             raise RuntimeError("You must have a token")
 
-        store = prompt.yn('Would you like to store your token')
+        store = yn('Would you like to store your token')
         if store is True:
             config['jenkins']['token'] = token
             config = configfp / "config.yaml"
