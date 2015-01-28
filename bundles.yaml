@@ -2,12 +2,14 @@ kubernetes:
   series: trusty
   services:
     kubernetes-master:
-      charm: https://github.com/whitmo/kubernetes-master.git
+      charm: kubernetes-master
+      branch: https://github.com/whitmo/kubernetes-master.git
       annotations:
         "gui-x": "1536.565185546875"
         "gui-y": "280.21742248535156"
     flannel:
-      charm: https://github.com/whitmo/flannel.git
+      charm: flannel
+      branch: https://github.com/whitmo/flannel.git
       num_units: 2
       options:
         container_type: docker
@@ -16,14 +18,16 @@ kubernetes:
         "gui-x": "896.260986328125"
         "gui-y": "298.6087341308594"
     kubernetes:
-      charm: https://github.com/whitmo/kubernetes.git
+      charm: kubernetes
+      branch: https://github.com/whitmo/kubernetes.git
       num_units: 2
       to: [flannel, flannel]
       annotations:
         "gui-x": "1219.8695068359375"
         "gui-y": "430.04345703125"
     etcd:
-      charm: https://github.com/whitmo/etcd.git
+      charm: etcd
+      branch: https://github.com/whitmo/etcd.git
       annotations:
         "gui-x": "1217.3477783203125"
         "gui-y": "142.39132690429688"
