@@ -8,14 +8,14 @@ virtualenv: .venv/bin/python
 	virtualenv .venv
 	.venv/bin/pip install pytest flake8 mock pyyaml charmhelpers charm-tools ecdsa bundletester
 
-lint:
-	@.venv/bin/flake8 hooks unit_tests
+lint: virtualenv
+	@.venv/bin/flake8 tests
 	@.venv/bin/juju-bundle proof
 
 
-func_test:
+func_test: virtualenv
 	@echo functional tests...
-	@juju test
+	@.venv/bin/bundletester -v -F -l DEBUG 
 
 clean:
 	rm -rf .venv
