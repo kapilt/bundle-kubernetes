@@ -1,0 +1,39 @@
+kubernetes:
+  series: trusty
+  services:
+    kubernetes-master:
+      charm: kubernetes-master
+      branch: https://github.com/whitmo/charm-kubernetes-master.git
+      annotations:
+        "gui-x": "1536.565185546875"
+        "gui-y": "280.21742248535156"
+    flannel:
+      charm: flannel
+      branch: https://github.com/whitmo/flannel-charm.git
+      num_units: 2
+      options:
+        container_type: docker
+        docker_origin: distro
+      annotations:
+        "gui-x": "896.260986328125"
+        "gui-y": "298.6087341308594"
+    kubernetes:
+      charm: kubernetes
+      branch: https://github.com/whitmo/charm-kubernetes.git
+      num_units: 2
+      to: [flannel, flannel]
+      annotations:
+        "gui-x": "1219.8695068359375"
+        "gui-y": "430.04345703125"
+    etcd:
+      charm: etcd
+      branch: https://github.com/whitmo/etcd-charm.git
+      annotations:
+        "gui-x": "1217.3477783203125"
+        "gui-y": "142.39132690429688"
+  relations:
+    - ['etcd', 'flannel']
+    - ['etcd', 'kubernetes']
+    - ['etcd', 'kubernetes-master']
+    - ['flannel', 'kubernetes']
+    - ['kubernetes-master', 'kubernetes']
