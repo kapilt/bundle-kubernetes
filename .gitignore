@@ -1,3 +1,4 @@
 .bzr
 *~
 /kubecharm.egg-info/
+*.pyc

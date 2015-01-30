@@ -27,4 +27,4 @@ config:
         - "0.8.2"
       pre:
         - "0.9.1"
-        - "0.9.1""list of permutations"
+        - "0.9.1"

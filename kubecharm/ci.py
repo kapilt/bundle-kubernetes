@@ -1,49 +1,35 @@
-#!/usr/bin/env python
-
-import argparse
+from clint.textui import prompt
+from clint.textui import yn
+from path import path
 import requests
-
-JENKINS_URL = 'http://juju-ci.vapour.ws:8080/job/charm-bundle-test-wip/buildWithParameters'
-JENKINS_TOKEN = 'wat'
+import yaml
 
 
-def main():
-    parser = argparse.ArgumentParser(
-        description="Trigger a charm test build on the remote jenkins slave "
-                    "at " + JENKINS_URL,
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-    parser.add_argument(
-        'url',
-        help='The charm url to test, typically in the form cs:precise/pictor-1. '
-             'Any bundletester-compatible url will work.')
-    parser.add_argument(
-        '--envs', '-e',
-        help='The substrates on which to test',
-        default='lxc,aws,hp,azure,joyent',
-    )
-    parser.add_argument(
-        '--callback', '-c',
-        help='Callback URL',
-        default='',
-    )
-    parser.add_argument(
-        '--job', '-j',
-        help='Job ID. Set in jenkins env as JOB_ID.',
-        default='',
-    )
-    args = parser.parse_args()
+def handle_token(config, configfp):
+    token = config['jenkins'].get('token', None)
+    if token is None:
+        token = prompt.query('You must enter a Jenkins token')
+        if token is None:
+            raise RuntimeError("You must have a token")
 
+        store = yn('Would you like to store your token')
+        if store is True:
+            config['jenkins']['token'] = token
+            config = configfp / "config.yaml"
+            with open(config) as stream:
+                yaml.safe_dump(config, stream)
+    return token
+
+
+def main(ctx, args, handle_token=handle_token):
+    token = handle_token(args.config, path(ctx['resources'].path))
     params = {
-        'token': JENKINS_TOKEN,
+        'token': token,
         'url': args.url,
         'envs': args.envs,
         'callback_url': args.callback,
         'job_id': args.job,
+        'bundle': args.bundle
     }
-    response = requests.get(JENKINS_URL, params=params)
+    response = requests.get(args.jenkins_api, params=params)
     print(response.url)
-
-
-if __name__ == '__main__':
-    main()
