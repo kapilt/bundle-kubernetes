@@ -13,6 +13,7 @@ def make_context(cli, args):
 
 
 def yaml_load(fp):
+    import pdb;pdb.set_trace()
     with open(fp) as stream:
         return yaml.safe_load(stream)
 
@@ -25,7 +26,7 @@ def genopts(parser):
         resources.user.write('---\njenkins: {}\n')
 
     parser.add_argument(
-        'config',
+        '--config',
         help='A config file to use for kfc',
         default=yaml_load(rpath),
         type=yaml_load)
@@ -43,16 +44,23 @@ def jenkins_job(parser):
     """
     default_jenkins_utils = "http://juju-ci.vapour.ws:8080/job/charm-bundle-test-wip/buildWithParameters"
 
-    parser.add_argument('-j',
+    parser.add_argument('-u',
                         '--jenkins-api', action='store',
                         help="URL for jenkins api endpoint",
                         type=path,
                         default=default_jenkins_utils)
 
+    parser.add_argument('-b',
+                        '--bundle', action='store',
+                        help="Relative path for a bundle to run",
+                        type=path,
+                        default='./bundles.yaml')
+
     parser.add_argument(
         'url',
         help='The charm url to test, typically in the form cs:precise/pictor-1. '
              'Any bundletester-compatible url will work.')
+
     parser.add_argument(
         '--envs', '-e',
         help='The substrates on which to test',
