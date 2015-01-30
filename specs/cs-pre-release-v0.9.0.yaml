@@ -2,7 +2,7 @@ kubernetes:
   series: trusty
   services:
     "kubernetes-master":
-      charm: cs:~kubernetes/trusty/kubernetes-master-1
+      charm: cs:~kubernetes/trusty/kubernetes-master-2
       options:
         version: "v0.9.0"
       annotations:
