@@ -1,0 +1,9 @@
+omit:
+- .git
+- .gitignore
+- .gitmodules
+- revision
+- local.yaml
+- develop.yaml
+- release
+- trusty

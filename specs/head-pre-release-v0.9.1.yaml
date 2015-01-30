@@ -1,15 +1,17 @@
 kubernetes:
   series: trusty
   services:
-    "kubernetes-master":
-      charm: cs:~kubernetes/trusty/kubernetes-master-1
+    kubernetes-master:
+      charm: kubernetes-master-0
+      branch: https://github.com/whitmo/charm-kubernetes-master.git
       options:
-        version: "v0.9.0"
+        version: "v0.9.1"
       annotations:
         "gui-x": "600"
         "gui-y": "0"
     flannel:
-      charm: cs:~kubernetes/trusty/flannel-1
+      charm: flannel-0
+      branch: https://github.com/whitmo/flannel-charm.git
       num_units: 2
       options:
         container_type: docker
@@ -18,16 +20,18 @@ kubernetes:
         "gui-x": "0"
         "gui-y": "0"
     kubernetes:
-      charm: cs:~kubernetes/trusty/kubernetes-1
+      charm: kubernetes-0
+      branch: https://github.com/whitmo/charm-kubernetes.git
       num_units: 2
       options:
-        version: "v0.9.0"
+        version: "v0.9.1"
       to: [flannel, flannel]
       annotations:
         "gui-x": "300"
         "gui-y": "300"
     etcd:
-      charm: cs:~kubernetes/trusty/etcd-1
+      charm: etcd-0
+      branch: https://github.com/whitmo/etcd-charm.git
       annotations:
         "gui-x": "300"
         "gui-y": "0"
