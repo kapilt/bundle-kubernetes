@@ -37,7 +37,7 @@ cli.add_generic_options(genopts)
 main = cli.run
 
 
-@cli.command('jujukube.ci:jenkins_job')
+@cli.command('kubecharm.ci:jenkins_job')
 def jenkins_job(parser):
     """
     Trigger a charm test build on the remote jenkins slave
