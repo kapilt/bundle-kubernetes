@@ -22,7 +22,7 @@ def genopts(parser):
     resources.init('kubecharm', 'kfc')
     rpath = path(resources.user.path) / fn
     if not rpath.exists():
-        resources.user.write('---\njenkins: {}\n')
+        resources.user.write(fn, '---\njenkins: {}\n')
 
     parser.add_argument(
         '--config',
