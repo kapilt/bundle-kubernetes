@@ -5,10 +5,10 @@ kubernetes:
       charm: kubernetes-master-0
       branch: https://github.com/whitmo/charm-kubernetes-master.git
       options:
-        version: "v0.8.2"
+        version: "v0.9.0"
       annotations:
-        "gui-x": "1536.565185546875"
-        "gui-y": "280.21742248535156"
+        "gui-x": "600"
+        "gui-y": "0"
     flannel:
       charm: flannel-0
       branch: https://github.com/whitmo/flannel-charm.git
@@ -17,24 +17,24 @@ kubernetes:
         container_type: docker
         docker_origin: distro
       annotations:
-        "gui-x": "896.260986328125"
-        "gui-y": "298.6087341308594"
+        "gui-x": "0"
+        "gui-y": "0"
     kubernetes:
       charm: kubernetes-0
       branch: https://github.com/whitmo/charm-kubernetes.git
       num_units: 2
-      to: [flannel, flannel]
       options:
-        version: "v0.8.2"
+        version: "v0.9.0"
+      to: [flannel, flannel]
       annotations:
-        "gui-x": "1219.8695068359375"
-        "gui-y": "430.04345703125"
+        "gui-x": "300"
+        "gui-y": "300"
     etcd:
       charm: etcd-0
       branch: https://github.com/whitmo/etcd-charm.git
       annotations:
-        "gui-x": "1217.3477783203125"
-        "gui-y": "142.39132690429688"
+        "gui-x": "300"
+        "gui-y": "0"
   relations:
     - ['etcd', 'flannel']
     - ['etcd', 'kubernetes']
