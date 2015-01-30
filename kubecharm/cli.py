@@ -13,7 +13,6 @@ def make_context(cli, args):
 
 
 def yaml_load(fp):
-    import pdb;pdb.set_trace()
     with open(fp) as stream:
         return yaml.safe_load(stream)
 
