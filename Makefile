@@ -2,20 +2,20 @@
 
 build: virtualenv lint test
 
-virtualenv: .venv/bin/python
-.venv/bin/python:
-	sudo apt-get install python-virtualenv
+virtualenv: 
 	virtualenv .venv
 	.venv/bin/pip install pytest flake8 mock pyyaml charmhelpers charm-tools ecdsa bundletester
 
-lint:
-	@.venv/bin/flake8 hooks unit_tests
+lint: virtualenv
+	@.venv/bin/flake8 tests
 	@.venv/bin/juju-bundle proof
 
+test: virtualenv
+	@echo Starting tests...
 
-func_test:
-	@echo functional tests...
-	@juju test
+functional-test:
+	@echo Starting functional tests...
+	@bundletester -F -l DEBUG -v -b specs/head.yaml
 
 clean:
 	rm -rf .venv
