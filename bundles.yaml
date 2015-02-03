@@ -18,7 +18,7 @@ kubernetes:
         "gui-x": "0"
         "gui-y": "0"
     kubernetes:
-      charm: cs:~kubernetes/trusty/kubernetes-1
+      charm: cs:~kubernetes/trusty/kubernetes-2
       num_units: 2
       options:
         version: "v0.9.0"
