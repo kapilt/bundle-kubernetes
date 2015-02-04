@@ -36,6 +36,47 @@ cli.add_generic_options(genopts)
 main = cli.run
 
 
+@cli.command('kubecharm.bundle:ci_spawn')
+def test_all(parser):
+    """
+    Trigger a bundle test job on for each bundle defined in the 
+    specs/matrix.yaml file. 
+    """
+    default_matrix = 'specs/matrix.yaml'
+    default_template = 'bundles.yaml'
+    parsers.add_argument('-m', 
+                         '--matrix', action='store',
+                         help="The path to the matrix file that contains the parameters.",
+                         type=path,
+                         default=default_matrix)
+    parsers.add_argument('-t',
+                         '--template', 
+                         action='store',
+                         help='The relative path to the bundle to use as the template (bundles.yaml works fine).',
+                         type=path,
+                         default=default_template)
+
+
+@cli.command('kubecharm.bundle:generate')
+def generate_bundles(parser):
+    """
+    Generate all the bundles using the template file and computed from the matrix file.
+    """
+    default_matrix = 'specs/matrix.yaml'
+    default_template = 'bundles.yaml'
+    parsers.add_argument('-m',
+                         '--matrix', 
+                         action='store',
+                         help="The path to the matrix file that contains the version matrix.",
+                         type=path,
+                         default=default_matrix)
+    parsers.add_argument('-t',
+                         '--template', 
+                         action='store',
+                         help='The relative path to the bundle to use as the template (bundles.yaml works fine).',
+                         type=path,
+                         default=default_template)
+
 @cli.command('kubecharm.ci:jenkins_job')
 def jenkins_job(parser):
     """
