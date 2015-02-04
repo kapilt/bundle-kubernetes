@@ -1,30 +1,28 @@
+bundle_prefixes:
+    - cs
+    - head
+bundle_repository: gh:whitmo/bundles-kubernetes
 charms:
-  - etcd
-  - flannel
-  - kubernetes
-  - kubernetes-master
+    kubernetes-master:
+        launchpad: cs:~kubernetes/trusty/kubernetes-master-2
+        github: https://github.com/whitmo/charm-kubernetes-master.git
+    kubernetes:
+         launchpad: cs:~kubernetes/trusty/kubernetes-1
+         github: https://github.com/whitmo/charm-kubernetes.git
+    flannel:
+         launchpad: cs:~kubernetes/trusty/flannel-1
+         github: https://github.com/whitmo/flannel-charm.git
+    etcd:
+         launchpad: cs:~kubernetes/trusty/etcd-1
+         github: https://github.com/whitmo/etcd-charm.git
 
-sources:
-  cs:
-    base: "cs:~kubernetes/trusty"
-    format: "{base}/{charm}"
-  head:
-    format: "{gh}/{repo}"
-    gh: https://github.com
-    etcd: whitmo/etcd-charm.git
-    flannel: whitmo/flannel-charm.git
-    kubernetes: whitmo/charm-kubernetes.git
-    kubernetes-master: whitmo/charm-kubernetes-master.git
+environments: aws,hp,azure,joyent
 
-config:
-  options:
-    juju-versions:
-        - "1.20"
-        - "1.21"
-        - "1.22"
-    kubes-versions:
-      releases:
-        - "0.8.2"
-      pre:
-        - "0.9.1"
-        - "0.9.1"
+kubernetes-releases:
+    # vN.N.N: sha1sum
+    v0.8.1: c9bc34a012685ac1923c8e9869f7740c7ed7c182
+    v0.9.0: 19157ec2059885e2da03cd2e4708df945f7184b0
+    v0.9.1: 28f1a37f9a09bc07fe6310af12713c3817d46700
+    v0.9.3: 14e482457204f38a4855a846e11d449ebde49014
+
+
