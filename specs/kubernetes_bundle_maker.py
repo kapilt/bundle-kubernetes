@@ -22,14 +22,14 @@ class BundleMaker():
         """
         # Convert the path to the matrix file if necessary.
         if (not os.path.isabs(matrix_file) and not os.path.exists(matrix_file)):
-            configuration_file = os.path.join(here, configuration_file)
-        with open(configuration_file, 'r') as stream:
+            configuration_file = os.path.join(here, matrix_file)
+        with open(matrix_file, 'r') as stream:
             self.config = yaml.safe_load(stream)
 
         # Convert the path to the template if necessary.
         if (not os.path.isabs(template) and not os.path.exists(template)):
-            template_file = os.path.join(here, template_file)
-        with open(template_file, 'r') as stream:
+            template = os.path.join(here, template)
+        with open(template, 'r') as stream:
             self.template = yaml.safe_load(stream)
 
     def configure_bundle(self, template, prefix, release):
@@ -38,14 +38,14 @@ class BundleMaker():
         """
         # Get a reference to the charms in the template.
         master = template['kubernetes']['services']['kubernetes-master']
-        minion['options']['version'] = release
+        minion = template['kubernetes']['services']['kubernetes']
         etcd = template['kubernetes']['services']['etcd']
         flannel = template['kubernetes']['services']['flannel']
 
         # Set the version configuration value on the kubernetes-master charm.
         master['options']['version'] = release
-        # Save a reference to the kubernetes charm in the template
-        minion = template['kubernetes']['services']['kubernetes']
+        # Set the version configuration value on the kubernetes charm.
+        minion['options']['version'] = release
 
         if 'head' == prefix:
             # To get Juju to reference github branches change charm and branch:
@@ -56,7 +56,7 @@ class BundleMaker():
             minion['charm'] = 'kubernetes-0'
             minion['branch'] = self.config['charms']['kubernetes']['github']
             etcd['charm'] = 'etcd-0'
-            etcd['branch'] = self.confinameg['charms']['etcd']['github']
+            etcd['branch'] = self.config['charms']['etcd']['github']
             flannel['charm'] = 'flannel-0'
             flannel['branch'] = self.config['charms']['flannel']['github']
         else:
@@ -106,6 +106,7 @@ class BundleMaker():
         """
         with open(file_name, 'w') as stream:
             stream.write(yaml.dump(contents, default_flow_style=False))
+
 
 if __name__ == "__main__":
     bundlemaker = BundleMaker('matrix.yaml', '../bundles.yaml')
