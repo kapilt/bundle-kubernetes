@@ -1,8 +1,17 @@
-Kubernetes
-----------
+# kubernetes-bundle
 
-Kubernetes is an open source implementation of container cluster management.
+Kubernetes is an open source system for managing containerized applications.
+The kubernetes-bundle allows you to deploy the many services of kubernetes and
+get started using the kubernetes technology in your cloud environment.
 
+# Current and Most Complete Information
+
+
+* The kubernetes-master charm on GitHUb
+* The kubernetes charm on GitHub
+* The ETCD charm on GitHub
+* The Flannel charm on GitHub
+*
 More info @ https://github.com/GoogleCloudPlatform/kubernetes
 
 Juju is an opensource cloud orchestration and provisioning system.
