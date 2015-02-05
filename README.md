@@ -47,7 +47,7 @@ orchestrated directly in the Juju Graphical User Interface, when using
 
 The quickstart package will present a curses ui to get you started on any
 supported cloud platform. After that the bundle will launch 4 machines (etcd,
-kubernetes-master, two kubernetes minions using flannel).
+kubernetes-master, two Kubernetes minions using flannel).
 
 # Using the Kubernetes Client
 
@@ -73,14 +73,14 @@ variable :
 
 And now you can run kubectl on the command line :
 
-    $ kubecfg get mi
+    $ kubectl get mi
 
 See the [kubectl documentation](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/kubectl.md)
 for more details of what can be done with the command line tool.
 
 ### Scaling up the cluster
 
-You can add capacity by adding more flannel units and kubernetes minions:
+You can add capacity by adding more flannel units and Kubernetes minions:
      $ juju add-unit flannel
      $ juju add-unit kubernetes --to # (the id that flannel is assigned)
 
@@ -91,7 +91,7 @@ load balancers and persistence volumes only work with the Google Compute
 provider at this time.
 
 The Juju integration uses the Kubernetes null provider. This means external
-load balancers and storage can't be directly driven through kubernetes config
+load balancers and storage can't be directly driven through Kubernetes config
 files.
 
 ## How to contribute
