@@ -2,9 +2,11 @@ from clint.textui import prompt
 from path import path
 import requests
 import yaml
+import sys
 
 
 def handle_token(config, configfp):
+    """ Prompt the user for the Jenkins token if it is not in config. """
     token = config['jenkins'].get('token', None)
     if token is None:
         token = prompt.query('You must enter a Jenkins token:')
@@ -20,15 +22,25 @@ def handle_token(config, configfp):
     return token
 
 
-def jenkins_job(ctx, args, handle_token=handle_token):
-    token = handle_token(args.config, path(ctx['resources'].path))
+def run_job(token, url, envs, callback, job, bundle, jenkins_api):
+    """ Allow the running of jobs from other python methods.  """
     params = {
         'token': token,
-        'url': args.url,
-        'envs': args.envs,
-        'callback_url': args.callback,
-        'job_id': args.job,
-        'bundle': args.bundle
+        'url': url,
+        'envs': envs,
+        'callback_url': callback,
+        'job_id': job,
+        'bundle': bundle
     }
-    response = requests.get(args.jenkins_api, params=params)
+    response = requests.get(jenkins_api, params=params)
+    return response
+
+
+def jenkins_job(ctx, args, handle_token=handle_token):
+    """ Get the token from config and the arguments to call the job. """
+    token = handle_token(args.config, path(ctx['resources'].path))
+    response = run_job(token, args.url, args.envs, args.callback, args.job,
+                       args.bundle)
+    if not response.ok:
+        sys.exit(1)
     print(response.url)

@@ -33,7 +33,7 @@ kubernetes:
       charm: cs:~kubernetes/trusty/kubernetes-1
       num_units: 2
       options:
-        version: v0.9.1
+        version: v0.10.0
       to:
       - flannel
       - flannel
@@ -43,4 +43,4 @@ kubernetes:
         gui-y: '0'
       charm: cs:~kubernetes/trusty/kubernetes-master-2
       options:
-        version: v0.9.1
+        version: v0.10.0

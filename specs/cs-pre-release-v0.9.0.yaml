@@ -1,39 +1,46 @@
 kubernetes:
+  relations:
+  - - etcd
+    - flannel
+  - - etcd
+    - kubernetes
+  - - etcd
+    - kubernetes-master
+  - - flannel
+    - kubernetes
+  - - kubernetes-master
+    - kubernetes
   series: trusty
   services:
-    "kubernetes-master":
-      charm: cs:~kubernetes/trusty/kubernetes-master-2
-      options:
-        version: "v0.9.0"
+    etcd:
       annotations:
-        "gui-x": "600"
-        "gui-y": "0"
+        gui-x: '300'
+        gui-y: '0'
+      charm: cs:~kubernetes/trusty/etcd-1
     flannel:
+      annotations:
+        gui-x: '0'
+        gui-y: '0'
       charm: cs:~kubernetes/trusty/flannel-1
       num_units: 2
       options:
         container_type: docker
         docker_origin: distro
-      annotations:
-        "gui-x": "0"
-        "gui-y": "0"
     kubernetes:
+      annotations:
+        gui-x: '300'
+        gui-y: '300'
       charm: cs:~kubernetes/trusty/kubernetes-1
       num_units: 2
       options:
-        version: "v0.9.0"
-      to: [flannel, flannel]
+        version: v0.9.0
+      to:
+      - flannel
+      - flannel
+    kubernetes-master:
       annotations:
-        "gui-x": "300"
-        "gui-y": "300"
-    etcd:
-      charm: cs:~kubernetes/trusty/etcd-1
-      annotations:
-        "gui-x": "300"
-        "gui-y": "0"
-  relations:
-    - ['etcd', 'flannel']
-    - ['etcd', 'kubernetes']
-    - ['etcd', 'kubernetes-master']
-    - ['flannel', 'kubernetes']
-    - ['kubernetes-master', 'kubernetes']
+        gui-x: '600'
+        gui-y: '0'
+      charm: cs:~kubernetes/trusty/kubernetes-master-2
+      options:
+        version: v0.9.0

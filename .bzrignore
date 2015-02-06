@@ -1,1 +1,7 @@
 .git
+.gitignore
+.vendor-rc
+specs
+*~
+/kubecharm.egg-info/
+*.pyc

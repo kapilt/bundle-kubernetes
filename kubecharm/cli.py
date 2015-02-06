@@ -36,6 +36,52 @@ cli.add_generic_options(genopts)
 main = cli.run
 
 
+@cli.command('kubecharm.bundle:test_all_bundles')
+def test_all_bundles(parser):
+    """
+    Trigger a bundle test job on for each bundle defined in the
+    specs/matrix.yaml file.
+    """
+    default_matrix = 'specs/matrix.yaml'
+    parser.add_argument('-m',
+                        '--matrix', action='store',
+                        help='The path to the matrix file that contains the'
+                        ' permutations of the bundles to test.',
+                        type=path,
+                        default=default_matrix)
+
+
+@cli.command('kubecharm.bundle:generate')
+def generate_bundles(parser):
+    """
+    Generate all the combinations of bundles from the matrix file, basing the
+    bundle on the template file, storing the output in a directory.
+    """
+    default_matrix = 'specs/matrix.yaml'
+    default_template = 'bundles.yaml'
+    default_output = 'specs'
+    parser.add_argument('-m',
+                        '--matrix',
+                        action='store',
+                        help='The path to the matrix file that contains the'
+                             ' permutations of the bundles to test.',
+                        type=path,
+                        default=default_matrix)
+    parser.add_argument('-t',
+                        '--template',
+                        action='store',
+                        help='The relative path to the bundle to use as the'
+                        ' template (the main bundles.yaml works fine).',
+                        type=path,
+                        default=default_template)
+    parser.add_argument('-o',
+                        '--output',
+                        action='store',
+                        help='The relative path to the output directory.',
+                        type=path,
+                        default=default_output)
+
+
 @cli.command('kubecharm.ci:jenkins_job')
 def jenkins_job(parser):
     """
