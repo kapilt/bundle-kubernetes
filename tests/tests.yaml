@@ -1,0 +1,5 @@
+# The tests.yaml informs the bundletester how to run the tests.
+# https://github.com/juju-solutions/bundletester#testsyaml
+makefile:
+    - lint
+

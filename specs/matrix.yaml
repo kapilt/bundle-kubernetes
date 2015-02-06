@@ -19,10 +19,18 @@ charms:
 environments: aws,hp,azure,joyent
 
 kubernetes-releases:
-    # vN.N.N: sha1sum
-    v0.8.1: c9bc34a012685ac1923c8e9869f7740c7ed7c182
-    v0.9.0: 19157ec2059885e2da03cd2e4708df945f7184b0
-    v0.9.1: 28f1a37f9a09bc07fe6310af12713c3817d46700
-    v0.9.3: 14e482457204f38a4855a846e11d449ebde49014
+# https://github.com/GoogleCloudPlatform/kubernetes/releases 
+    v0.10.0:
+        label: pre-release
+        sha1: f9ec2eec8b3b0e02b616c2105182e7ebf53e323e
+    v0.9.3:
+        label: latest-release
+        sha1: 14e482457204f38a4855a846e11d449ebde49014
+    v0.9.0:
+        label: pre-release
+        sha1: 19157ec2059885e2da03cd2e4708df945f7184b0
+    v0.9.1:
+        label: pre-release
+        sha1: 28f1a37f9a09bc07fe6310af12713c3817d46700
 
 

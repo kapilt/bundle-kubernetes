@@ -39,8 +39,8 @@ def run_job(token, url, envs, callback, job, bundle, jenkins_api):
 def jenkins_job(ctx, args, handle_token=handle_token):
     """ Get the token from config and the arguments to call the job. """
     token = handle_token(args.config, path(ctx['resources'].path))
-    response = run_job(token, args.url, args.envs, args.callback, args.job, 
-        args.bundle)
+    response = run_job(token, args.url, args.envs, args.callback, args.job,
+                       args.bundle)
     if not response.ok:
         sys.exit(1)
     print(response.url)
