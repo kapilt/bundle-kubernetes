@@ -136,6 +136,7 @@ class TestRunner(Base):
         """
         Run the tests for all bundles as computed by the matrix yaml file.
         """
+        api = 'http://juju-ci.vapour.ws:8080/job/charm-bundle-test-wip/buildWithParameters'
         # Specify the environments (docker does not work on LXC).
         env = self.config['environments']
         repository = self.config['bundle_repository']
@@ -149,7 +150,8 @@ class TestRunner(Base):
                                                               release)
                 message = 'Running job on {0} for {1} with bundle {2}'
                 print(message.format(env, repository, bundle_name))
-                ci.run_job(token, repository, env, '', '', bundle_name)
+                r = ci.run_job(token, repository, env, '', '', bundle_name, api)
+                print(r.text)
 
 
 # The variable to indicate the class and method to call for the subcommand.
