@@ -6,7 +6,7 @@ Kubernetes uses [Docker](http://docker.com) to package, instantiate, and run
 containerized applications.
 
 [Juju](https://juju.ubuntu.com) is an open source cloud orchestration and
-provisioning system that works with may different cloud environments.
+provisioning system that works with many different cloud environments.
 The kubernetes-bundle allows you to deploy the many services of Kubernetes to a
 cloud environment and get started using the Kubernetes technology quickly.
 
@@ -23,31 +23,47 @@ The servers that perform the work are known as minions.  Minions must be able to
 communicate with the master and run the workloads that are assigned to them.
 
 ### Flannel
-Flannel is the component that provides individual subnets for each machine in
-the cluster.
+Flannel is a [software defined networking](http://en.wikipedia.org/wiki/Software-defined_networking) component that provides individual subnets for each machine in the cluster.
 
 ### etcd
-This is an open source key-value configuration store that Kubernetes uses to
-persist master state.
+Etcd is an open source key-value configuration store that Kubernetes uses to
+persist master state, and Flannel consumes to coordinate subnets among units.
 
 ## Usage
 
+#### Juju Quickstart
 You will need to [install the Juju client](https://juju.ubuntu.com/install/) and
 `juju-quickstart` as pre-requisites.  To deploy the bundle use `juju-quickstart`
 which runs on Mac OS (`brew install juju-quickstart`) or Ubuntu
 (`apt-get install juju-quickstart`).
 
+#### For further information on getting started with Juju
+
+Juju has complete documentation with regard to setup, and cloud configuration
+on it's own [documentation site](https://juju.ubuntu.com/docs/).
+
+- [Getting Started](https://juju.ubuntu.com/docs/getting-started.html)
+- [Using Juju](https://juju.ubuntu.com/docs/charms.html)
+
+### Bundle Usage
+
 This bundle can be used to deploy Kubernetes onto any cloud it can be
 orchestrated directly in the Juju Graphical User Interface, when using
 `juju quickstart`:
 
-    juju quickstart https://raw.github.com/user/my/master/bundles.yaml
+    juju quickstart https://raw.githubusercontent.com/whitmo/bundle-kubernetes/master/bundles.yaml
     juju expose kubernetes-master
 
 
-The quickstart package will present a curses ui to get you started on any
-supported cloud platform. After that the bundle will launch 4 machines (etcd,
-kubernetes-master, two Kubernetes minions using flannel).
+The command above will do a few things on behalf of the user:
+
+- Inspect for a bootstrapped environment, and bootstrap if required
+- Deploy the Juju GUI to the topology, co-located on the bootstrap node
+- Provision 4 machines, and deploy the Kubernetes services on top of them (etcd,
+  Kubernetes-master, two Kubernetes minions using flannel)
+- Orchestrate the relations among the services, and exit.
+
+For further reading on [Juju Quickstart](https://pypi.python.org/pypi/juju-quickstart)
 
 # Using the Kubernetes Client
 
@@ -59,8 +75,8 @@ computer you will need to install the binary locally.
 
 Download the Kuberentes release from:
 https://github.com/GoogleCloudPlatform/kubernetes/releases
-and extract release you can just directly use the
-cli binary at ./kubernetes/platforms/linux/amd64/kubectl
+and extract the release, you can then just directly use the cli binary at
+./kubernetes/platforms/linux/amd64/kubectl
 
 You'll need the address of the kubernetes-master as environment variable :
 
@@ -81,8 +97,9 @@ for more details of what can be done with the command line tool.
 ### Scaling up the cluster
 
 You can add capacity by adding more flannel units and Kubernetes minions:
-     $ juju add-unit flannel
-     $ juju add-unit kubernetes --to # (the id that flannel is assigned)
+
+     juju add-unit flannel
+     juju add-unit kubernetes --to # (the id that flannel is assigned)
 
 ## Known Limitations
 
