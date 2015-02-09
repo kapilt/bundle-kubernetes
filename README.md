@@ -1,46 +1,58 @@
 # kubernetes-bundle
 
+Kubernetes is an open source system for managing containerized
+applications.  Kubernetes uses [Docker](http://docker.com) to package,
+instantiate, and run containerized applications.
 
-Kubernetes is an open source system for managing containerized applications.
-Kubernetes uses [Docker](http://docker.com) to package, instantiate, and run
-containerized applications.
-
-[Juju](https://juju.ubuntu.com) is an open source cloud orchestration and
-provisioning system that works with many different cloud environments.
-The kubernetes-bundle allows you to deploy the many services of Kubernetes to a
-cloud environment and get started using the Kubernetes technology quickly.
+[Juju](https://juju.ubuntu.com) is an open source cloud orchestration
+and provisioning system that works with many different cloud
+environments.  The kubernetes-bundle allows you to deploy the many
+services of Kubernetes to a cloud environment and get started using
+the Kubernetes technology quickly.
 
 
 ## Components of Kubernetes
 
 ### Kubernetes master
-The controlling unit in a Kubernetes cluster is called the master.  It is the
-main management contact point providing many management services for the worker
-nodes.
+
+The controlling unit in a Kubernetes cluster is called the master.  It
+is the main management contact point providing many management
+services for the worker nodes.
 
 ### Kubernetes minion
-The servers that perform the work are known as minions.  Minions must be able to
-communicate with the master and run the workloads that are assigned to them.
+
+The servers that perform the work are known as minions.  Minions must
+be able to communicate with the master and run the workloads that are
+assigned to them.
 
 ### Flannel
-Flannel is a [software defined networking](http://en.wikipedia.org/wiki/Software-defined_networking) component that provides individual subnets for each machine in the cluster.
+
+Flannel is a
+[software defined networking](http://en.wikipedia.org/wiki/Software-defined_networking)
+component that provides individual subnets for each machine in the
+cluster.
 
 ### Etcd
-Etcd is an open source key-value configuration store that Kubernetes uses to
-persist master state, and Flannel consumes to coordinate subnets among units.
+
+Etcd is an open source key-value configuration store that Kubernetes
+uses to persist master state, and Flannel consumes to coordinate
+subnets among units.
 
 ## Usage
 
 #### Juju Quickstart
-You will need to [install the Juju client](https://juju.ubuntu.com/install/) and
-`juju-quickstart` as pre-requisites.  To deploy the bundle use `juju-quickstart`
-which runs on Mac OS (`brew install juju-quickstart`) or Ubuntu
-(`apt-get install juju-quickstart`).
+
+You will need to
+[install the Juju client](https://juju.ubuntu.com/install/) and
+`juju-quickstart` as pre-requisites.  To deploy the bundle use
+`juju-quickstart` which runs on Mac OS (`brew install
+juju-quickstart`) or Ubuntu (`apt-get install juju-quickstart`).
 
 #### For further information on getting started with Juju
 
-Juju has complete documentation with regard to setup, and cloud configuration
-on it's own [documentation site](https://juju.ubuntu.com/docs/).
+Juju has complete documentation with regard to setup, and cloud
+configuration on it's own
+[documentation site](https://juju.ubuntu.com/docs/).
 
 - [Getting Started](https://juju.ubuntu.com/docs/getting-started.html)
 - [Using Juju](https://juju.ubuntu.com/docs/charms.html)
@@ -69,21 +81,22 @@ For further reading on [Juju Quickstart](https://pypi.python.org/pypi/juju-quick
 
 You'll need the Kubernetes command line client,
 [kubectl](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/kubectl.md)
-to interact with the created cluster.  The kubectl command is installed on the
-kubernetes-master charm, but if you want to work with the cluster from your
-computer you will need to install the binary locally.
+to interact with the created cluster.  The kubectl command is
+installed on the kubernetes-master charm, but if you want to work with
+the cluster from your computer you will need to install the binary
+locally.
 
 Download the Kuberentes release from:
-https://github.com/GoogleCloudPlatform/kubernetes/releases
-and extract the release, you can then just directly use the cli binary at
+https://github.com/GoogleCloudPlatform/kubernetes/releases and extract
+the release, you can then just directly use the cli binary at
 ./kubernetes/platforms/linux/amd64/kubectl
 
 You'll need the address of the kubernetes-master as environment variable :
 
     juju status kubernetes-master/0
 
-Grab the public-address there and export it as KUBERNETES_MASTER environment
-variable :
+Grab the public-address there and export it as KUBERNETES_MASTER
+environment variable :
 
     export KUBERNETES_MASTER=$(juju status --format=oneline kubernetes-master | cut -d' ' -f3):8080
 
@@ -91,7 +104,8 @@ And now you can run kubectl on the command line :
 
     kubectl get mi
 
-See the [kubectl documentation](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/kubectl.md)
+See the
+[kubectl documentation](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/kubectl.md)
 for more details of what can be done with the command line tool.
 
 ### Scaling up the cluster
@@ -103,19 +117,20 @@ You can add capacity by adding more flannel units and Kubernetes minions:
 
 ## Known Limitations
 
-Kubernetes currently has several platform specific functionality. For example
-load balancers and persistence volumes only work with the Google Compute
-provider at this time.
+Kubernetes currently has several platform specific functionality. For
+example load balancers and persistence volumes only work with the
+Google Compute provider at this time.
 
-The Juju integration uses the Kubernetes null provider. This means external
-load balancers and storage can't be directly driven through Kubernetes config
-files.
+The Juju integration uses the Kubernetes null provider. This means
+external load balancers and storage can't be directly driven through
+Kubernetes config files.
 
 ## How to contribute
 
-The kubernetes-bundle is open source and available on github.com.  If you want
-to get started developing on the bundle you can clone it from github.  Often
-you will need the related charms which are also on github.
+The kubernetes-bundle is open source and available on github.com.  If
+you want to get started developing on the bundle you can clone it from
+github.  Often you will need the related charms which are also on
+github.
 
     mkdir ~/bundles
     git clone https://github.com/whitmo/kubernetes-bundle.git ~/bundles/kubernetes-bundle
@@ -136,8 +151,9 @@ you will need the related charms which are also on github.
   - [Flannel charm on GitHub](https://github.com/whitmo/flannel-charm)
 
 More information about the
-[Kubernetes project](https://github.com/GoogleCloudPlatform/kubernetes) or check
-out the [Kubernetes Documentation](https://github.com/GoogleCloudPlatform/kubernetes/tree/master/docs)
+[Kubernetes project](https://github.com/GoogleCloudPlatform/kubernetes)
+or check out the
+[Kubernetes Documentation](https://github.com/GoogleCloudPlatform/kubernetes/tree/master/docs)
 for more details about the Kubernetes concepts and terminology.
 
 Having a problem? Check the [Kubernetes issues database](https://github.com/GoogleCloudPlatform/kubernetes/issues)
