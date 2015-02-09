@@ -1,7 +1,8 @@
 # kubernetes-bundle
 
-This repository exists to help you deploy and manage kubernetes with
-Juju.
+The kubernetes-bundle allows you to deploy the many services of
+Kubernetes to a cloud environment and get started using the Kubernetes
+technology quickly.
 
 ## Kubernetes
 
@@ -9,43 +10,17 @@ Kubernetes is an open source system for managing containerized
 applications.  Kubernetes uses [Docker](http://docker.com) to run
 containerized applications.
 
-[Juju](https://juju.ubuntu.com) is an open source cloud orchestration
-and provisioning system that works with many different cloud
-environments.  The kubernetes-bundle allows you to deploy the many
-services of Kubernetes to a cloud environment and get started using
-the Kubernetes technology quickly.
+## Juju TL;DR
 
+The [Juju](https://juju.ubuntu.com) system provides provisioning and
+orchestration across a variety of clouds and bare metal. A juju bundle
+describes collection of services and how they interelate. `juju
+quickstart` allows you to bootstrap a deployment environment and
+deploy a bundle.
 
-## Components of Kubernetes
+## Dive in!
 
-### Kubernetes master
-
-The controlling unit in a Kubernetes cluster is called the master.  It
-is the main management contact point providing many management
-services for the worker nodes.
-
-### Kubernetes minion
-
-The servers that perform the work are known as minions.  Minions must
-be able to communicate with the master and run the workloads that are
-assigned to them.
-
-### Flannel
-
-Flannel is a
-[software defined networking](http://en.wikipedia.org/wiki/Software-defined_networking)
-component that provides individual subnets for each machine in the
-cluster.
-
-### Etcd
-
-Etcd is an open source key-value configuration store that Kubernetes
-uses to persist master state, and Flannel consumes to coordinate
-subnets among units.
-
-## Usage
-
-#### Juju Quickstart
+#### Install Juju Quickstart
 
 You will need to
 [install the Juju client](https://juju.ubuntu.com/install/) and
@@ -53,7 +28,102 @@ You will need to
 `juju-quickstart` which runs on Mac OS (`brew install
 juju-quickstart`) or Ubuntu (`apt-get install juju-quickstart`).
 
-#### For further information on getting started with Juju
+### Deploy Kubes Bundle
+
+Deploy Kubernetes onto any cloud and orchestrated directly in the Juju
+Graphical User Interface using `juju quickstart`:
+
+    juju quickstart -i https://raw.githubusercontent.com/whitmo/bundle-kubernetes/master/bundles.yaml
+    juju expose kubernetes-master
+
+The command above does few things for you:
+
+- Starts a curses based gui for managing your cloud or MAAS credentials
+- Looks for a bootstrapped deployment environment, and bootstraps if
+  required. This will launch a bootstrap node in your chosen
+  deployment environment (machine 0).
+- Deploys the Juju GUI to your environment onto the bootstrap node.
+- Provisions 4 machines, and deploys the Kubernetes services on top of
+  them (Kubernetes-master, two Kubernetes minions using flannel, and etcd).
+- Orchestrates the relations among the services, and exits.
+
+Now you should have a running Kubernetes. Run `juju status
+--format=oneline` to see the address of your kubernetes master.
+
+For further reading on [Juju Quickstart](https://pypi.python.org/pypi/juju-quickstart)
+
+### Using the Kubernetes Client
+
+You'll need the Kubernetes command line client,
+[kubectl](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/kubectl.md)
+to interact with the created cluster.  The kubectl command is
+installed on the kubernetes-master charm. If you want to work with
+the cluster from your computer you will need to install the binary
+locally (see instructions below).
+
+You can access kubectl by a number ways using juju.
+
+via juju run:
+
+    juju run --service kubernetes-master/0 "sudo kubectl get mi"
+
+via juju ssh:
+
+    juju ssh kubernetes-master/0 -t "sudo kubectl get mi"
+
+You may also `juju ssh kubernetes-master/0` and call kubectl from that
+machine.
+
+See the
+[kubectl documentation](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/kubectl.md)
+for more details of what can be done with the command line tool.
+
+### Scaling up the cluster
+
+You can add capacity by adding more flannel units and Kubernetes minions:
+
+     juju add-unit flannel
+     juju add-unit kubernetes --to # (the id that flannel is assigned)
+
+
+### Known Limitations
+
+Kubernetes currently has several platform specific functionality. For
+example load balancers and persistence volumes only work with the
+Google Compute provider at this time.
+
+The Juju integration uses the Kubernetes null provider. This means
+external load balancers and storage can't be directly driven through
+Kubernetes config files at this time. We look forward to adding these
+capabilities to the charms.
+
+
+## More about the components the bundle deploys
+
+### Kubernetes master
+
+The master controls the Kubernetes cluster.  It manages for the worker
+nodes and provides the primary interface for control by the user.
+
+### Kubernetes minion
+
+The minions are the servers that perform the work.  Minions must
+communicate with the master and run the workloads that are assigned to
+them.
+
+### Flannel
+
+Flannel provides individual subnets for each machine in the cluster by
+creating a
+[software defined networking](http://en.wikipedia.org/wiki/Software-defined_networking).
+
+### Etcd
+
+Etcd persists state for Flannel and Kubernetes. It is a distributed
+key-value store with an http interface.
+
+
+## For further information on getting started with Juju
 
 Juju has complete documentation with regard to setup, and cloud
 configuration on it's own
@@ -62,34 +132,8 @@ configuration on it's own
 - [Getting Started](https://juju.ubuntu.com/docs/getting-started.html)
 - [Using Juju](https://juju.ubuntu.com/docs/charms.html)
 
-### Bundle Usage
 
-This bundle can be used to deploy Kubernetes onto any cloud it can be
-orchestrated directly in the Juju Graphical User Interface, when using
-`juju quickstart`:
-
-    juju quickstart https://raw.githubusercontent.com/whitmo/bundle-kubernetes/master/bundles.yaml
-    juju expose kubernetes-master
-
-
-The command above will do a few things on behalf of the user:
-
-- Inspect for a bootstrapped environment, and bootstrap if required
-- Deploy the Juju GUI to the topology, co-located on the bootstrap node
-- Provision 4 machines, and deploy the Kubernetes services on top of them (etcd,
-  Kubernetes-master, two Kubernetes minions using flannel)
-- Orchestrate the relations among the services, and exit.
-
-For further reading on [Juju Quickstart](https://pypi.python.org/pypi/juju-quickstart)
-
-# Using the Kubernetes Client
-
-You'll need the Kubernetes command line client,
-[kubectl](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/kubectl.md)
-to interact with the created cluster.  The kubectl command is
-installed on the kubernetes-master charm, but if you want to work with
-the cluster from your computer you will need to install the binary
-locally.
+## Installing the kubectl outside of kubernetes master machine
 
 Download the Kuberentes release from:
 https://github.com/GoogleCloudPlatform/kubernetes/releases and extract
@@ -113,24 +157,8 @@ See the
 [kubectl documentation](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/kubectl.md)
 for more details of what can be done with the command line tool.
 
-### Scaling up the cluster
 
-You can add capacity by adding more flannel units and Kubernetes minions:
-
-     juju add-unit flannel
-     juju add-unit kubernetes --to # (the id that flannel is assigned)
-
-## Known Limitations
-
-Kubernetes currently has several platform specific functionality. For
-example load balancers and persistence volumes only work with the
-Google Compute provider at this time.
-
-The Juju integration uses the Kubernetes null provider. This means
-external load balancers and storage can't be directly driven through
-Kubernetes config files.
-
-## How to contribute
+## Hacking on the kubernetes-bundle and associated charms
 
 The kubernetes-bundle is open source and available on github.com.  If
 you want to get started developing on the bundle you can clone it from
@@ -148,12 +176,18 @@ github.
     juju quickstart specs/develop.yaml
     juju expose kubernetes-master
 
+
+## How to contribute
+
+Send us pull requests!  We'll send you a cookie if they include tests and docs.
+
+
 ## Current and Most Complete Information
 
-  - [kubernetes-master charm on Github](https://github.com/whitmo/charm-kubernetes-master)
-  - [kubernetes charm on GitHub](https://github.com/whitmo/charm-kubernetes)
-  - [etcd charm on GitHub](https://github.com/whitmo/etcd-charm)
-  - [Flannel charm on GitHub](https://github.com/whitmo/flannel-charm)
+ - [kubernetes-master charm on Github](https://github.com/whitmo/charm-kubernetes-master)
+ - [kubernetes charm on GitHub](https://github.com/whitmo/charm-kubernetes)
+ - [etcd charm on GitHub](https://github.com/whitmo/etcd-charm)
+ - [Flannel charm on GitHub](https://github.com/whitmo/flannel-charm)
 
 More information about the
 [Kubernetes project](https://github.com/GoogleCloudPlatform/kubernetes)
