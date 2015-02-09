@@ -28,7 +28,7 @@ You will need to
 `juju-quickstart` which runs on Mac OS (`brew install
 juju-quickstart`) or Ubuntu (`apt-get install juju-quickstart`).
 
-### Deploy Kubes Bundle
+### Deploy Kubernetes Bundle
 
 Deploy Kubernetes onto any cloud and orchestrated directly in the Juju
 Graphical User Interface using `juju quickstart`:
