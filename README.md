@@ -1,8 +1,13 @@
 # kubernetes-bundle
 
+This repository exists to help you deploy and manage kubernetes with
+Juju.
+
+## Kubernetes
+
 Kubernetes is an open source system for managing containerized
-applications.  Kubernetes uses [Docker](http://docker.com) to package,
-instantiate, and run containerized applications.
+applications.  Kubernetes uses [Docker](http://docker.com) to run
+containerized applications.
 
 [Juju](https://juju.ubuntu.com) is an open source cloud orchestration
 and provisioning system that works with many different cloud
