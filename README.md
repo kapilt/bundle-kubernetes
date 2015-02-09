@@ -25,7 +25,7 @@ communicate with the master and run the workloads that are assigned to them.
 ### Flannel
 Flannel is a [software defined networking](http://en.wikipedia.org/wiki/Software-defined_networking) component that provides individual subnets for each machine in the cluster.
 
-### etcd
+### Etcd
 Etcd is an open source key-value configuration store that Kubernetes uses to
 persist master state, and Flannel consumes to coordinate subnets among units.
 
@@ -89,7 +89,7 @@ variable :
 
 And now you can run kubectl on the command line :
 
-    $ kubectl get mi
+    kubectl get mi
 
 See the [kubectl documentation](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/kubectl.md)
 for more details of what can be done with the command line tool.
