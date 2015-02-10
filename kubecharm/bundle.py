@@ -151,7 +151,7 @@ class TestRunner(Base):
                 message = 'Running job on {0} for {1} with bundle {2}'
                 print(message.format(env, repository, bundle_name))
                 r = ci.run_job(token, repository, env, '', '', bundle_name, api)
-                print(r.text)
+                print(r.url)
 
 
 # The variable to indicate the class and method to call for the subcommand.
