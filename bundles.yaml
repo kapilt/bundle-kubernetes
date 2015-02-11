@@ -6,6 +6,7 @@ kubernetes:
       annotations:
         "gui-x": "600"
         "gui-y": "0"
+      expose: true
     flannel:
       charm: cs:~kubernetes/trusty/flannel-1
       num_units: 2
