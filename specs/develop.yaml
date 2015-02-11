@@ -1,0 +1,35 @@
+kubernetes:
+  series: trusty
+  services:
+    kubernetes-master:
+      charm: local:trusty/kubernetes-master
+      annotations:
+        "gui-x": "1536.565185546875"
+        "gui-y": "280.21742248535156"
+    flannel:
+      charm: cs:~hazmat/trusty/flannel
+      num_units: 2
+      options:
+        container_type: docker
+        docker_origin: distro
+      annotations:
+        "gui-x": "896.260986328125"
+        "gui-y": "298.6087341308594"
+    kubernetes:
+      charm: local:trusty/kubernetes
+      num_units: 2
+      to: [flannel, flannel]
+      annotations:
+        "gui-x": "1219.8695068359375"
+        "gui-y": "430.04345703125"
+    etcd:
+      charm: cs:~hazmat/trusty/etcd
+      annotations:
+        "gui-x": "1217.3477783203125"
+        "gui-y": "142.39132690429688"
+  relations:
+    - ['etcd', 'flannel']
+    - ['etcd', 'kubernetes']
+    - ['etcd', 'kubernetes-master']
+    - ['flannel', 'kubernetes']
+    - ['kubernetes-master', 'kubernetes']

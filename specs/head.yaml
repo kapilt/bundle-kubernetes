@@ -3,34 +3,34 @@ kubernetes:
   services:
     kubernetes-master:
       charm: kubernetes-master
-#      branch: lp:~hazmat/charms/trusty/kubernetes-master/trunk
+      branch: https://github.com/whitmo/charm-kubernetes-master.git
       annotations:
-        "gui-x": "1536.565185546875"
-        "gui-y": "280.21742248535156"
+        "gui-x": "600"
+        "gui-y": "0"
     flannel:
       charm: flannel
-#      branch: lp:~hazmat/charms/trusty/flannel/trunk
+      branch: https://github.com/whitmo/flannel-charm.git
       num_units: 2
       options:
         container_type: docker
         docker_origin: distro
       annotations:
-        "gui-x": "896.260986328125"
-        "gui-y": "298.6087341308594"
+        "gui-x": "0"
+        "gui-y": "0"
     kubernetes:
       charm: kubernetes
-#      branch: lp:~hazmat/charms/trusty/kubernetes/trunk
+      branch: https://github.com/whitmo/charm-kubernetes.git
       num_units: 2
       to: [flannel, flannel]
       annotations:
-        "gui-x": "1219.8695068359375"
-        "gui-y": "430.04345703125"
+        "gui-x": "300"
+        "gui-y": "300"
     etcd:
       charm: etcd
-#      branch: lp:~hazmat/charms/trusty/etcd/trunk
+      branch: https://github.com/whitmo/etcd-charm.git
       annotations:
-        "gui-x": "1217.3477783203125"
-        "gui-y": "142.39132690429688"
+        "gui-x": "300"
+        "gui-y": "0"
   relations:
     - ['etcd', 'flannel']
     - ['etcd', 'kubernetes']
