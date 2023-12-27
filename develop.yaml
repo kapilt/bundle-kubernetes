@@ -7,7 +7,7 @@ kubernetes:
       annotations:
         "gui-x": "1536.565185546875"
         "gui-y": "280.21742248535156"
-    flannel:
+    flannel:edfedfdfdfdf
       charm: flannel
 #      branch: lp:~hazmat/charms/trusty/flannel/trunk
       num_units: 2
